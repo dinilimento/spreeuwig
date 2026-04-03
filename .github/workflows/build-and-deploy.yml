@@ -24,17 +24,17 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: npm
-          cache-dependency-path: starling-flock/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
-        working-directory: starling-flock
+
 
       - name: Build Angular app for Pages
         run: npm run build:pages
-        working-directory: starling-flock
+
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -42,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: starling-flock/dist/murmurize/browser
+          path: dist/murmurize/browser
 
   deploy:
     environment:
