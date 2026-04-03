@@ -1,0 +1,220 @@
+<div class="page">
+  <header class="header">
+    <div class="brand">
+      <span class="title">{{ t('title') }}</span>
+    </div>
+    <div class="language-select">
+      <div class="flag-row" role="group" [attr.aria-label]="t('language')">
+        <button
+          type="button"
+          class="flag-btn"
+          [class.active]="language === 'en'"
+          (click)="setLanguage('en')"
+          aria-label="English">
+          🇬🇧
+        </button>
+        <button
+          type="button"
+          class="flag-btn"
+          [class.active]="language === 'nl'"
+          (click)="setLanguage('nl')"
+          aria-label="Nederlands">
+          🇳🇱
+        </button>
+        <button
+          type="button"
+          class="flag-btn"
+          [class.active]="language === 'es'"
+          (click)="setLanguage('es')"
+          aria-label="Español">
+          🇪🇸
+        </button>
+        <button
+          type="button"
+          class="flag-btn"
+          [class.active]="language === 'fr'"
+          (click)="setLanguage('fr')"
+          aria-label="Français">
+          🇫🇷
+        </button>
+        <button
+          type="button"
+          class="flag-btn"
+          [class.active]="language === 'it'"
+          (click)="setLanguage('it')"
+          aria-label="Italiano">
+          🇮🇹
+        </button>
+        <button
+          type="button"
+          class="flag-btn"
+          [class.active]="language === 'de'"
+          (click)="setLanguage('de')"
+          aria-label="Deutsch">
+          🇩🇪
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <section class="canvas-shell">
+      <app-flock-canvas [config]="config" />
+      <div class="amsterdam-skyline" aria-hidden="true"></div>
+
+      <div class="overlay-card" [class.collapsed]="!showBasics">
+        <div class="card-header">
+          <h2>{{ t('basicsTitle') }}</h2>
+          <button type="button" class="collapse-btn" (click)="toggleBasics()">
+            {{ showBasics ? t('hide') : t('show') }}
+          </button>
+        </div>
+        <div class="card-content" *ngIf="showBasics">
+          <p>{{ t('basicsBody') }}</p>
+          <p class="hint">{{ t('basicsHint') }}</p>
+        </div>
+      </div>
+
+      <aside class="control-panel" [class.collapsed]="!showControls">
+        <div class="panel-header">
+          <h3>{{ t('controlsTitle') }}</h3>
+          <button type="button" class="collapse-btn" (click)="toggleControls()">
+            {{ showControls ? t('hide') : t('show') }}
+          </button>
+        </div>
+
+        <div class="panel-content" *ngIf="showControls">
+
+        <div class="control">
+          <label>
+            {{ t('size') }}
+            <span>{{ config.count }}</span>
+          </label>
+          <input
+            type="range"
+            min="1500"
+            max="4500"
+            step="10"
+            [ngModel]="config.count"
+            (ngModelChange)="updateFlockSize($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('speed') }}
+            <span>{{ config.maxSpeed | number : '1.1-1' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0.6"
+            max="3.0"
+            step="0.1"
+            [ngModel]="config.maxSpeed"
+            (ngModelChange)="updateMaxSpeed($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('cohesion') }}
+            <span>{{ config.cohesionWeight | number : '1.1-1' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="3.0"
+            step="0.05"
+            [ngModel]="config.cohesionWeight"
+            (ngModelChange)="updateCohesion($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('separation') }}
+            <span>{{ config.separationWeight | number : '1.1-1' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="6.0"
+            step="0.05"
+            [ngModel]="config.separationWeight"
+            (ngModelChange)="updateSeparation($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('edgeJitter') }}
+            <span>{{ config.edgeJitterStrength | number : '1.2-2' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="4"
+            step="0.05"
+            [ngModel]="config.edgeJitterStrength"
+            (ngModelChange)="updateEdgeJitter($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('centerPullPush') }}
+            <span>{{ config.centerPullStrength | number : '1.2-2' }}</span>
+          </label>
+          <input
+            type="range"
+            min="-0.45"
+            max="0.55"
+            step="0.01"
+            [ngModel]="config.centerPullStrength"
+            (ngModelChange)="updateCenterPull($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('borderPadding') }}
+            <span>{{ config.borderPadding | number : '1.0-0' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="140"
+            step="2"
+            [ngModel]="config.borderPadding"
+            (ngModelChange)="updateBorderPadding($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('ripStrength') }}
+            <span>{{ config.disturbanceStrength | number : '1.1-1' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0"
+            max="2"
+            step="0.1"
+            [ngModel]="config.disturbanceStrength"
+            (ngModelChange)="updateRipStrength($event)" />
+        </div>
+
+        <div class="control">
+          <label>
+            {{ t('ripFrequency') }}
+            <span>{{ config.disturbanceFrequency | number : '1.1-1' }}</span>
+          </label>
+          <input
+            type="range"
+            min="0.4"
+            max="3"
+            step="0.1"
+            [ngModel]="config.disturbanceFrequency"
+            (ngModelChange)="updateRipFrequency($event)" />
+        </div>
+
+          <button type="button" class="reset-btn" (click)="resetConfig()">{{ t('reset') }}</button>
+        </div>
+      </aside>
+    </section>
+  </main>
+</div>
+

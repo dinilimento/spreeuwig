@@ -1,0 +1,352 @@
+:host {
+  --panel-gap: 1rem;
+  --controls-panel-width: 240px;
+  --controls-panel-estimated-height: 29rem;
+  display: block;
+  height: 100vh;
+  color: #e8ecff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+  background:
+    radial-gradient(1400px 820px at 50% 106%, rgba(255, 166, 100, 0.18) 0%, rgba(255, 148, 102, 0.1) 26%, rgba(65, 66, 120, 0.06) 48%, rgba(26, 37, 82, 0) 72%),
+    linear-gradient(180deg, #6d9fff 0%, #527ddf 32%, #3e60bc 54%, #4f5098 72%, #74568a 100%);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem 1.75rem 1.5rem;
+  box-sizing: border-box;
+  gap: 0.9rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  pointer-events: none;
+  min-height: 2.35rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: #b9c5ff;
+}
+
+.logo-dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, #f4fbff 0%, #93b3ff 40%, #3c5be8 100%);
+  box-shadow: 0 0 12px rgba(110, 155, 255, 0.85);
+}
+
+.title {
+  text-shadow: 0 0 12px rgba(8, 16, 54, 0.8);
+}
+
+.subtitle {
+  font-size: 0.8rem;
+  color: #8188b5;
+  width: 360px;
+  max-width: 360px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.language-select {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.74rem;
+  color: #d8e0ff;
+  pointer-events: auto;
+}
+
+.flag-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+}
+
+.flag-btn {
+  border: 1px solid rgba(183, 200, 255, 0.4);
+  background: rgba(18, 30, 68, 0.58);
+  border-radius: 0.45rem;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0.12rem 0.22rem;
+  cursor: pointer;
+  filter: saturate(0.85);
+  transition:
+    transform 0.1s ease,
+    border-color 0.12s ease,
+    background 0.12s ease,
+    filter 0.12s ease;
+}
+
+.flag-btn:hover {
+  transform: translateY(-0.5px);
+  border-color: rgba(205, 218, 255, 0.72);
+  filter: saturate(1);
+}
+
+.flag-btn.active {
+  border-color: rgba(186, 213, 255, 0.96);
+  background: rgba(54, 80, 152, 0.9);
+  box-shadow:
+    0 0 0 1px rgba(186, 213, 255, 0.4),
+    0 0 14px rgba(138, 185, 255, 0.72),
+    0 0 24px rgba(99, 162, 255, 0.44);
+  filter: saturate(1.05);
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+}
+
+.canvas-shell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(109, 134, 255, 0.4);
+  box-shadow: 0 18px 55px rgba(1, 3, 22, 0.9), 0 0 40px rgba(45, 84, 255, 0.45);
+  background:
+    radial-gradient(1200px 500px at 50% 104%, rgba(255, 165, 102, 0.28) 0%, rgba(246, 136, 104, 0.13) 32%, rgba(58, 54, 110, 0.07) 56%, rgba(22, 31, 68, 0) 76%),
+    linear-gradient(180deg, #6a9bff 0%, #4f79dc 32%, #3b5fbc 56%, #4b4f98 76%, #6d5689 100%);
+}
+
+app-flock-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.amsterdam-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28%;
+  pointer-events: none;
+  z-index: 3;
+  transform: scale(1.12);
+  transform-origin: center bottom;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0) 0 8%, rgba(0, 0, 0, 0.15) 20%, rgba(0, 0, 0, 0.38) 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 260' preserveAspectRatio='none'><path fill='%23020202' d='M0 260 L0 176 L22 176 L22 142 L32 142 L32 176 L58 176 L64 156 L70 176 L96 176 L96 148 L106 148 L106 176 L132 176 L138 162 L144 176 L170 176 L170 140 L180 140 L180 176 L206 176 L212 154 L218 176 L244 176 L244 146 L254 146 L254 176 L280 176 L286 160 L292 176 L318 176 L318 142 L328 142 L328 176 L354 176 L360 156 L366 176 L392 176 L392 148 L402 148 L402 176 L428 176 L434 162 L440 176 L466 176 L466 140 L476 140 L476 176 L502 176 L508 154 L514 176 L540 176 L540 146 L550 146 L550 176 L576 176 L582 160 L588 176 L614 176 L614 142 L624 142 L624 176 L650 176 L656 156 L662 176 L688 176 L688 148 L698 148 L698 176 L724 176 L730 162 L736 176 L762 176 L762 140 L772 140 L772 176 L798 176 L804 154 L810 176 L836 176 L836 146 L846 146 L846 176 L872 176 L878 160 L884 176 L910 176 L910 142 L920 142 L920 176 L946 176 L952 156 L958 176 L984 176 L984 148 L994 148 L994 176 L1020 176 L1026 162 L1032 176 L1058 176 L1058 140 L1068 140 L1068 176 L1094 176 L1100 154 L1106 176 L1132 176 L1132 146 L1142 146 L1142 176 L1168 176 L1174 160 L1180 176 L1200 176 L1200 260 Z'/></svg>");
+  background-size: 100% 100%, 100% 100%;
+  background-repeat: no-repeat, no-repeat;
+}
+
+.amsterdam-skyline::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 260' preserveAspectRatio='none'><path fill='%23020202' d='M36 260 L36 176 L54 176 L54 156 L62 156 L62 176 L84 176 L90 168 L96 176 L118 176 L118 158 L126 158 L126 176 L148 176 L154 166 L160 176 L182 176 L182 156 L190 156 L190 176 L212 176 L218 168 L224 176 L246 176 L246 158 L254 158 L254 176 L276 176 L282 166 L288 176 L310 176 L310 156 L318 156 L318 176 L340 176 L346 168 L352 176 L374 176 L374 158 L382 158 L382 176 L404 176 L410 166 L416 176 L438 176 L438 156 L446 156 L446 176 L468 176 L474 168 L480 176 L502 176 L502 158 L510 158 L510 176 L532 176 L538 166 L544 176 L566 176 L566 156 L574 156 L574 176 L596 176 L602 168 L608 176 L630 176 L630 158 L638 158 L638 176 L660 176 L666 166 L672 176 L694 176 L694 156 L702 156 L702 176 L724 176 L730 168 L736 176 L758 176 L758 158 L766 158 L766 176 L788 176 L794 166 L800 176 L822 176 L822 156 L830 156 L830 176 L852 176 L858 168 L864 176 L886 176 L886 158 L894 158 L894 176 L916 176 L922 166 L928 176 L950 176 L950 156 L958 156 L958 176 L980 176 L986 168 L992 176 L1014 176 L1014 158 L1022 158 L1022 176 L1044 176 L1050 166 L1056 176 L1078 176 L1078 156 L1086 156 L1086 176 L1108 176 L1114 168 L1120 176 L1142 176 L1142 158 L1150 158 L1150 176 L1168 176 L1168 260 Z'/></svg>") no-repeat center / 100% 100%;
+  opacity: 0.98;
+}
+
+.overlay-card {
+  position: absolute;
+  right: calc(1.5rem + var(--controls-panel-width) + var(--panel-gap));
+  bottom: 1.5rem;
+  width: 320px;
+  max-width: calc(100% - (var(--controls-panel-width) + 6.5rem));
+  padding: 0.85rem 0.95rem 0.9rem;
+  border-radius: 0.8rem;
+  background: linear-gradient(145deg, rgba(5, 9, 25, 0.96), rgba(7, 12, 32, 0.96));
+  border: 1px solid rgba(124, 148, 255, 0.56);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 26px rgba(108, 143, 255, 0.6);
+  backdrop-filter: blur(14px) saturate(150%);
+  color: #dfe6ff;
+  z-index: 4;
+}
+
+.overlay-card h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.card-header,
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+}
+
+.collapse-btn {
+  border: 1px solid rgba(171, 192, 255, 0.7);
+  background: rgba(20, 30, 64, 0.55);
+  color: #dbe4ff;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
+}
+
+.collapse-btn:hover {
+  background: rgba(35, 51, 102, 0.7);
+}
+
+.overlay-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: #9ea6d5;
+}
+
+.overlay-card .hint {
+  margin-top: 0.55rem;
+  font-size: 0.78rem;
+  color: #b9c5ff;
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  width: var(--controls-panel-width);
+  padding: 0.85rem 0.95rem 0.9rem;
+  border-radius: 0.8rem;
+  background: linear-gradient(145deg, rgba(5, 9, 25, 0.96), rgba(7, 12, 32, 0.96));
+  border: 1px solid rgba(124, 148, 255, 0.56);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.85), 0 0 26px rgba(108, 143, 255, 0.6);
+  backdrop-filter: blur(14px) saturate(150%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  z-index: 4;
+}
+
+.control-panel h3 {
+  margin: 0 0 0.1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c7d2ff;
+}
+
+.overlay-card.collapsed {
+  max-width: 230px;
+  width: auto;
+  padding: 0.5rem 0.65rem;
+  border-radius: 0.65rem;
+}
+
+.overlay-card.collapsed .card-header {
+  justify-content: space-between;
+}
+
+.overlay-card.collapsed .collapse-btn,
+.control-panel.collapsed .collapse-btn {
+  min-width: 44px;
+  padding: 0.18rem 0.38rem;
+  font-size: 0.66rem;
+}
+
+.control-panel.collapsed .panel-header {
+  justify-content: flex-end;
+}
+
+.control-panel.collapsed {
+  min-height: 0;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.control label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: #9ea6d5;
+}
+
+.control label span {
+  color: #dfe6ff;
+  font-variant-numeric: tabular-nums;
+}
+
+.control input[type='range'] {
+  width: 100%;
+  cursor: pointer;
+}
+
+.reset-btn {
+  margin-top: 0.3rem;
+  align-self: flex-end;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(155, 178, 255, 0.8);
+  background: radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.12), transparent 55%);
+  color: #dde4ff;
+  cursor: pointer;
+  transition: background 0.15s ease-out, box-shadow 0.15s ease-out, transform 0.08s ease-out;
+}
+
+.reset-btn:hover {
+  box-shadow: 0 0 14px rgba(123, 157, 255, 0.8);
+  transform: translateY(-0.5px);
+}
+
+.reset-btn:active {
+  transform: translateY(0.5px) scale(0.98);
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 0.9rem 0.75rem 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+
+  .subtitle {
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .language-select {
+    margin-top: 0.25rem;
+  }
+
+  .overlay-card {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    width: auto;
+    max-width: none;
+  }
+
+  .control-panel {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+    border-radius: 0.9rem 0.9rem 0.6rem 0.6rem;
+  }
+}
+
